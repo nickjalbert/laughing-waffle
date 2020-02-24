@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eu
+
+flake8 . --exclude=./laughing-waffle/ --count --max-line-length=127 --statistics
