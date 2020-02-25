@@ -2,6 +2,7 @@
 # Generally solves the env in < 3000 episodes
 import ray
 from ray.rllib.agents import ppo
+from ray.tune.logger import pretty_print
 
 from corridor import CorridorEnv
 
@@ -18,6 +19,8 @@ def solve():
         episode_length_mean = results.get("episode_len_mean")
         episodes_total = results.get("episodes_total")
         total_time = results.get("time_total_s")
+        print("\n============")
+        print(pretty_print(results))
         print(
             f"\nCorridorEnv (length: {length}) "
             f"Training Iteration {training_iteration}:"
