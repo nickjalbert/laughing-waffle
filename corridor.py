@@ -1,13 +1,16 @@
+# Env that models a 1D corridor (you can move left or right)
+# Goal is to get to the end (i.e. move right [length] number of times)
 import gym
 
 
-class Corridor(gym.Env):
+class CorridorEnv(gym.Env):
     metadata = {"render.modes": ["human"]}
-    action_space = (0, 1)
 
-    def __init__(self, config=None):
-        config = config if config else {}
-        self.length = config.get("length", 10)
+    def __init__(self, config_env=None):
+        self.config_env = config_env if config_env else {}
+        self.length = int(self.config_env.get("length", 10))
+        self.action_space = gym.spaces.Discrete(2)
+        self.observation_space = gym.spaces.Discrete(self.length + 1)
         self.reset()
 
     def step(self, action):
@@ -25,7 +28,7 @@ class Corridor(gym.Env):
 
     def reset(self):
         self.position = 0
-        return (self.position,)
+        return self.position
 
     def render(self, mode="human"):
         pass
